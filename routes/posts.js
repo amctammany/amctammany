@@ -1,7 +1,9 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    express = require('express');
+    express = require('express'),
+    Showdown = require('showdown'),
+    converter = new Showdown.converter();
 
 module.exports = function (app) {
   var Post = mongoose.model('Post');
@@ -33,7 +35,21 @@ module.exports = function (app) {
       .populate('tags')
       .exec(function (err, posts) {
         if (err) { console.log(err); }
-        res.send(posts);
+        res.render('posts/index', {posts: posts});
+      });
+  });
+
+  // GET /posts/new => New
+  router.get('/new', function (req, res) {
+    res.render('posts/new', {post: 'foo'});
+  });
+  // GET /posts/id/edit => Edit
+  router.get('/:id/edit', function (req, res) {
+    Post.findOne({urlString: req.params.id})
+      .populate('tags')
+      .exec(function (err, post) {
+        if (err) { console.log(err); }
+        res.render('posts/edit', {post: post, content: converter.makeHtml(post.content)})
       });
   });
 
@@ -43,9 +59,10 @@ module.exports = function (app) {
       .populate('tags')
       .exec(function (err, post) {
         if (err) { console.log(err); }
-        res.send(post);
+        res.render('posts/show', {post: post, content: converter.makeHtml(post.content)})
       });
   });
+
 
   // DEL /posts/id => Remove
   router.delete('/:id',  function (req, res) {
@@ -66,28 +83,27 @@ module.exports = function (app) {
 
   // POST /posts => Create
   router.post('/', function (req, res) {
+    console.log(req.body);
     var post = new Post(req.body);
     post.save(function (err) {
       if (err) { console.log(err); }
-      res.send(post);
+      res.redirect('/posts/' + post.urlString);
     });
   });
 
-  // PUT /posts/id => Update
-  router.put('/:id', function (req, res) {
+  // POST /posts/id => Update
+  router.post('/:id', function (req, res) {
+    console.log('update');
     Post.findOne({urlString: req.params.id}, function (err, post) {
       if (err) {console.log(err);}
-
       post.title = req.body.title;
-
       post.tagNames = req.body.tagNames.toLowerCase();
-
       post.intro = req.body.intro;
       post.content = req.body.content;
 
       post.save(function (err) {
         if (err) { console.log(err); }
-        res.send(post);
+        res.redirect('/posts/' + post.urlString);
       });
     });
     cullTags();

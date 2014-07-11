@@ -6,7 +6,7 @@ var express = require('express'),
 var app = express();
 app.directory = __dirname;
 
-var mongoUrl = 'mongodb://localhost:27017';
+var mongoUrl = 'mongodb://localhost/test';
 
 
 if (mongoUrl) {
