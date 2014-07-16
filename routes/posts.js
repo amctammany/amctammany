@@ -27,6 +27,7 @@ module.exports = function (app) {
       });
   }
 
+
   var router = express.Router();
 
   // GET /posts => Index
