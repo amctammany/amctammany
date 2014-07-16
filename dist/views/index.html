@@ -1,0 +1,25 @@
+<% include header.html %>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-4">
+          <div class="well">
+            Sidebar
+            <span class="glyphicon glyphicon-search"></span>
+          </div>
+        </div>
+
+        <div class="col-lg-9 col-md-9 col-sm-8">
+          <div class="well">
+            Blog!
+            <% posts.forEach(function(post) { %>
+              <h1><%= post %></h1>
+
+            <% }) %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h1>Blog me!</h1>
+    <h4>Fuck me!  </h4>
+    <% include footer.html %>

@@ -42,7 +42,7 @@ gulp.task('jshint', function () {
 
 });
 gulp.task('usemin', function () {
-  gulp.src('*/*.html')
+  gulp.src('app/views/*.html')
     .pipe(plugins.usemin({
       css: [plugins.minifyCss(), 'concat'],
       //html: [plugins.minifyHtml({empty: true})],
@@ -53,9 +53,14 @@ gulp.task('usemin', function () {
 
 gulp.task('build', ['clean', 'stylus', 'jshint', 'test'], function () {
   // Copy over HTML
-  gulp.src('*/*.html')
+  gulp.src('app/views/**/*.html')
+    .pipe(gulp.dest('dist/views/'));
+  gulp.src('app/scripts/**/*.js')
+    .pipe(gulp.dest('dist/scripts/'));
+  gulp.src(['app/views/header.html', 'app/views/footer.html'])
     .pipe(plugins.usemin({
       css: [plugins.minifyCss(), 'concat'],
+      html: [plugins.minifyHtml({empty: true})],
       js: [plugins.uglify()]
     }))
     .pipe(gulp.dest('dist/views'));

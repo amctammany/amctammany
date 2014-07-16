@@ -1,3 +1,4 @@
 var app = require('./app');
+var http = require('http');
 
-app.listen(process.env.port || 15301);
+http.createServer(app).listen(process.env.port || 15301);

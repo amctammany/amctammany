@@ -11,6 +11,7 @@ module.exports = function (app) {
     app.engine('html', require('ejs').renderFile);
     app.set('view engine', 'html');
     app.use(express.static(path.join(app.directory, 'dist')));
+    app.use('/src', express.static(path.join(app.directory, 'src')));
     app.use(bodyParser.urlencoded());
   }
 };

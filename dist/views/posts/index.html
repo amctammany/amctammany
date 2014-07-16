@@ -1,0 +1,40 @@
+<% include ../header.html %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-4">
+      <div class="well">
+        Sidebar
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+    </div>
+
+    <div class="col-lg-9 col-md-9 col-sm-8">
+      <div class="well">
+        <% posts.forEach(function(post) { %>
+        <div class="post">
+        
+          <header>
+            <a href="/posts/<%= post.urlString %>" class="title"><%= post.title %></a>
+            <span class="timestamp"><%= post.createdAt %></span>
+            <div class="tags">
+              <% post.tags.forEach(function (tag) { %>
+              <a href="/tags/<%= tag.name %>" class="tag"><%= tag.name %></a>
+
+              <% }) %>
+            </div>
+          
+          </header>
+          <div class="intro">
+            <%= post.intro %>
+          </div>
+        </div>
+
+
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<%= posts %>-->
+<% include ../footer.html %>
