@@ -4,8 +4,17 @@
 
 .demo-container {
   width: 100%;
+  border: 1px solid #000;
+  margin: 10px;
+  padding: 10px;
 }
-.demo-container .demo-canvas {
+.demo-container .demo-container-options {
+  border: 1px solid #000;
+}
+.demo-container .demo-container-canvas {
+  background: #00f;
+}
+.demo-container .demo-container-canvas .demo-canvas {
   background: #fff;
   border: 1px solid #000;
   display: block;
