@@ -42,7 +42,7 @@ gulp.task('jshint', function () {
 
 });
 gulp.task('usemin', function () {
-  gulp.src('app/views/*.html')
+  gulp.src('app/**/*.html')
     .pipe(plugins.usemin({
       css: [plugins.minifyCss(), 'concat'],
       //html: [plugins.minifyHtml({empty: true})],
