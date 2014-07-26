@@ -24,7 +24,7 @@ game.controls({
 game.actions({
   'options-play': function (game) {game.start();},
   'options-pause': function (game) {game.stop();},
-  'options-step': function (game) {game.step();},
+  'options-step': function (game) {game.step(0.3);},
   'options-restart': function (game) {game.restart();},
 });
 game.bootstrap(function () {

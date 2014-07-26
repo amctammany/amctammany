@@ -105,7 +105,17 @@ Game.prototype.canvas = function (name, properties) {
  * @param {Function} cb - Initialization Callback
  */
 Game.prototype.bootstrap = function (cb) {
-  cb.call(this);
+  this.bootstrapFn = cb.bind(this);
+};
+
+Game.prototype.restart = function () {
+  this.stop();
+  this.reset();
+  this.bootstrapFn();
+};
+
+Game.prototype.reset = function () {
+  this._particles = [];
 };
 
 /**
@@ -155,13 +165,18 @@ Game.prototype.animate = function (canvas) {
 
 };
 
+Game.prototype.step = function (delta) {
+  this.clear(this.mainCanvas);
+  this.update(delta);
+  this.draw(this.mainCanvas);
+};
+
 Game.prototype.start = function () {
   if (this.animationFrame) {
     return;
   }
-  console.log(this.mainCanvas);
   this.animate(this.mainCanvas);
-}
+};
 
 Game.prototype.stop = function () {
   if (this.animationFrame) {
