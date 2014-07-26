@@ -10,9 +10,9 @@ describe('particle', function () {
   });
 
   it('should instantiate with 0 position and velocity', function () {
-    expect(particle.current.x).toBe(0);
-    expect(particle.current.y).toBe(0);
-    expect(particle.previous.x).toBe(0);
-    expect(particle.previous.y).toBe(0);
+    expect(particle.x).toBe(0);
+    expect(particle.y).toBe(0);
+    expect(particle.velocity.x).toBe(0);
+    expect(particle.velocity.y).toBe(0);
   });
 });
