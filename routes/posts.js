@@ -3,6 +3,7 @@
 var mongoose = require('mongoose'),
     express = require('express'),
     Showdown = require('showdown'),
+    async = require('async'),
     converter = new Showdown.converter();
 
 module.exports = function (app) {
@@ -29,15 +30,28 @@ module.exports = function (app) {
 
 
   var router = express.Router();
+  var postsQuery = Post.find({}).populate('tags');
+  var tagsQuery = Tag.find({});
+  var resources = {
+    posts: postsQuery.exec.bind(postsQuery),
+    tags: tagsQuery.exec.bind(tagsQuery),
+  };
 
   // GET /posts => Index
   router.get('/', function (req, res) {
-    Post.find()
-      .populate('tags')
-      .exec(function (err, posts) {
-        if (err) { console.log(err); }
-        res.render('posts/index', {posts: posts});
-      });
+    //Post.find()
+      //.populate('tags')
+      //.exec(function (err, posts) {
+        //if (err) { console.log(err); }
+        //res.render('posts/index', {posts: posts});
+      //});
+    async.parallel(resources, function (err, result) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      res.render('posts/index', {posts: result.posts, tags: result.tags});
+    });
   });
 
   // GET /posts/new => New

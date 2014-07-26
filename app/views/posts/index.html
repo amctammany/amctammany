@@ -2,13 +2,21 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-3 col-md-3 col-sm-4">
-      <div class="well">
+      <div class="well post-sidebar">
         <div class="input-group">
           <input class="form-control" type="text" placeholder="Search" />
           <span class="input-group-addon">
             <a class="glyphicon glyphicon-search" href="/search"></a>
           </span>
         </div>
+        <div class="tag-listings">
+          <div class="tag-items">
+            <% tags.forEach(function (tag) { %>
+              <span class="tag"><%= tag.name %></span>
+            <% }) %>
+          </div>
+        </div>
+        
       </div>
     </div>
 
@@ -19,7 +27,7 @@
         
           <header>
             <a href="/posts/<%= post.urlString %>" class="title"><%= post.title %></a>
-            <span class="timestamp"><%= post.createdAt %></span>
+            <span class="timestamp"><%= (new Date(post.createdAt)).toDateString() %></span>
             <div class="tags">
               <% post.tags.forEach(function (tag) { %>
               <a href="/tags/<%= tag.name %>" class="tag"><%= tag.name %></a>

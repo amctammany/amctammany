@@ -6,7 +6,7 @@
         
         <header>
           <a href="/posts/<%= post.urlString %>" class="title"><%= post.title %></a>
-          <span class="timestamp"><%= post.createdAt %></span>
+          <span class="timestamp"><%= (new Date(post.createdAt)).toDateString()%></span>
           <div class="tags">
             <% post.tags.forEach(function (tag) { %>
             <a href="/tags/<%= tag.urlString %>" class="tag"><%= tag.name %></a>

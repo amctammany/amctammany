@@ -51,14 +51,33 @@
 }
 .post header .tags {
   clear: both;
+  margin: 5px;
   list-style-type: none;
 }
 .post header .tags .tag {
+  margin: 1px;
   height: 15px;
   padding: 2px 10px;
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 5px;
 }
 .post .intro {
   margin: 10px;
   padding: 5px;
   background: #fff;
+}
+.post-sidebar .tag-listings {
+  padding: 5px;
+}
+.post-sidebar .tag-listings .tag-items {
+  text-align: center;
+}
+.post-sidebar .tag-listings .tag-items .tag {
+  display: inline-block;
+  padding: 2px 5px;
+  margin: 2px;
+  background: #aee;
+  border: 1px solid #000;
+  border-radius: 5px;
 }
