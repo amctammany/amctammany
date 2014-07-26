@@ -83,7 +83,6 @@ Game.prototype.actions = function (bindings) {
 Game.prototype.canvas = function (name, properties) {
   var canvas = document.getElementById(name);
   var $parent = $(canvas).parent();
-  console.log($parent.width());
   canvas.width = $parent.width() - 20;
   this.width = canvas.width;
 
@@ -97,7 +96,6 @@ Game.prototype.canvas = function (name, properties) {
     ctx: ctx,
   };
   $.extend(this._canvii[name], properties);
-  console.log(this._canvii);
   this.mainCanvas = name;
 };
 
