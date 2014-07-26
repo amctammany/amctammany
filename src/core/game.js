@@ -81,22 +81,26 @@ Game.prototype.actions = function (bindings) {
  * @param {Object} properties - Canvas Properties
  */
 Game.prototype.canvas = function (name, properties) {
-  var canvas = document.getElementById(name);
-  var $parent = $(canvas).parent();
-  canvas.width = $parent.width() - 20;
-  this.width = canvas.width;
+  //var canvas = document.getElementById(name);
+  //var $parent = $(canvas).parent();
+  //canvas.width = $parent.width() - 20;
+  //this.width = canvas.width;
 
-  canvas.height = ($parent.width() - 20) * 0.66;
-  this.height = canvas.height;
+  //canvas.height = ($parent.width() - 20) * 0.66;
+  //this.height = canvas.height;
 
-  var ctx = canvas.getContext('2d');
-  this._canvii[name] = {
-    $parent: $parent,
-    canvas: canvas,
-    ctx: ctx,
-  };
-  $.extend(this._canvii[name], properties);
-  this.mainCanvas = name;
+  //var ctx = canvas.getContext('2d');
+  //this._canvii[name] = {
+    //$parent: $parent,
+    //canvas: canvas,
+    //ctx: ctx,
+  //};
+  //$.extend(this._canvii[name], properties);
+  //this.mainCanvas = name;
+  //
+  var canvas = new Canvas(name, properties);
+  this._canvii[name] = canvas;
+  this.mainCanvas = canvas;
 };
 
 /**
@@ -106,6 +110,7 @@ Game.prototype.canvas = function (name, properties) {
  */
 Game.prototype.bootstrap = function (cb) {
   this.bootstrapFn = cb.bind(this);
+  this.restart();
 };
 
 Game.prototype.restart = function () {
@@ -134,10 +139,11 @@ Game.prototype.addParticle = function (config) {
  * @memberof Game
  */
 Game.prototype.draw = function (canvas) {
-  var ctx = this._canvii[canvas].ctx;
-  this._particles.forEach(function (p) {
-    p.draw(ctx);
-  });
+  this.mainCanvas.draw(this._particles);
+  //var ctx = this._canvii[canvas].ctx;
+  //this._particles.forEach(function (p) {
+    //p.draw(ctx);
+  //});
 };
 
 /**
@@ -152,23 +158,22 @@ Game.prototype.update = function (delta) {
 };
 
 
-Game.prototype.clear = function (canvas) {
-  var ctx = this._canvii[canvas].ctx;
-  ctx.clearRect(0, 0, 10000, 10000);
-};
+//Game.prototype.clear = function (canvas) {
+  //var ctx = this._canvii[canvas].ctx;
+  //ctx.clearRect(0, 0, 10000, 10000);
+//};
 
 Game.prototype.animate = function (canvas) {
-  this.clear(canvas);
+  //this.clear(canvas);
   this.update(0.3);
-  this.draw(canvas);
+  this.mainCanvas.draw(this._particles);
   this.animationFrame = window.requestAnimationFrame(this.animate.bind(this, canvas));
 
 };
 
 Game.prototype.step = function (delta) {
-  this.clear(this.mainCanvas);
   this.update(delta);
-  this.draw(this.mainCanvas);
+  this.mainCanvas.draw(this._particles);
 };
 
 Game.prototype.start = function () {

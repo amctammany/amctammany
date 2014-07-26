@@ -24,10 +24,10 @@ Particle.prototype.update = function (delta) {
   this.x += this.velocity.x * delta;
   this.y += this.velocity.y * delta;
 
-  if (this.x < 0) {
+  if (this.x < -1 || this.x > 1) {
     this.velocity.x *= -1;
   }
-  if (this.y < 0) {
+  if (this.y < -1 || this.y > 1) {
     this.velocity.y *= -1;
   }
 };

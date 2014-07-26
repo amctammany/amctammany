@@ -5,7 +5,7 @@ game.canvas('pendulum-canvas', {
 });
 game.vars({
 
-  'gravity': 10,
+  'gravity': 0.1,
   'damping': 0.75,
 });
 game.controls({
@@ -20,18 +20,18 @@ game.actions({
 });
 game.bootstrap(function () {
   var anchor = this.addParticle({
-    x: 0.5,
-    y: 0.1,
+    x: 0.0,
+    y: -0.9,
   });
 
   var p1 = this.addParticle({
-    x: 0.3,
-    y: 0.2,
+    x: 0.1,
+    y: -0.8,
   });
 
   var p2 = this.addParticle({
-    x: 0.4,
-    y: 0.3,
+    x: 0.2,
+    y: -0.6,
   });
 
 

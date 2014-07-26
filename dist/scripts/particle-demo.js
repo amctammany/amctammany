@@ -11,8 +11,8 @@ game.canvas('particle-canvas', {
 });
 game.vars({
   'numParticles': 20,
-  'velocityAvg': 10,
-  'velocitySigma': 2,
+  'velocityAvg': 0.03,
+  'velocitySigma': 0.002,
   'restitution': 1.0
 });
 game.controls({
@@ -33,8 +33,8 @@ game.bootstrap(function () {
     var vx = this.var('velocityAvg') * (Math.random() * 2 - 1);
     var vy = this.var('velocityAvg') * (Math.random() * 2 - 1);
     this.addParticle({
-      x: this.width * Math.random(),
-      y: this.height * Math.random(),
+      x: 2 * Math.random() - 1,
+      y: 2 * Math.random() - 1,
       velocity: new Vec2(vx, vy),
       mass: 1,
     });
