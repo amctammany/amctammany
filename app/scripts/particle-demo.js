@@ -28,7 +28,6 @@ game.actions({
   'options-restart': function (game) {game.restart();},
 });
 game.bootstrap(function () {
-  console.log(this._vars);
   var l = this.var('numParticles');
   for (var i = 0, l = this.var('numParticles'); i < l; i++) {
     var vx = this.var('velocityAvg') * (Math.random() * 2 - 1);
@@ -43,5 +42,4 @@ game.bootstrap(function () {
 
   this.animate('particle-canvas');
 
-  console.log(this);
 });

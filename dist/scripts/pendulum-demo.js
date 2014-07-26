@@ -19,7 +19,6 @@ game.actions({
   'options-restart': function (game) {game.restart();},
 });
 game.bootstrap(function () {
-  console.log(this._vars);
   var anchor = this.addParticle({
     x: 0.5,
     y: 0.1,
