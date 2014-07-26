@@ -87,3 +87,5 @@ gulp.task('server', ['stylus'], function () {
     .pipe(plugins.livereload())
 
 });
+
+gulp.task('default', ['jsdoc', 'build']);

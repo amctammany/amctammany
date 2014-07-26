@@ -1,5 +1,6 @@
 'use strict';
 
+var $;
 /**
  * @class Game
  * @param {String} id - DOM Identifier
@@ -9,7 +10,9 @@ var Game = function (id) {
   this.id = id;
   this._vars = {};
   this._actions = {};
-  this.$div = $('#' + id);
+  if ($ !== undefined) {
+    this.$div = $('#' + id);
+  }
 };
 
 /**

@@ -4,6 +4,7 @@ module.exports = function (app) {
   require('./demos')(app);
   require('./posts')(app);
   require('./tags')(app);
+  require('./projects')(app);
   // GET /posts => Index
   app.get('/', function (req, res) {
     Post.find()

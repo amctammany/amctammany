@@ -1,0 +1,56 @@
+<% include ../header.html %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>Double Pendulum Simulation</h1>
+      <div id="pendulum-demo" class="row demo-container">
+        <div class="col-lg-3 col-md-3">
+        
+          <div class="demo-container-options">
+            <div class="input-group">
+              <span class="input-group-addon">Gravity</span>
+              <input id="options-gravity" type="number" class="form-control" />
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon">Damping</span>
+              <input id="options-damping" type="number" class="form-control" />
+            </div>
+            <div class="demo-container-controls">
+            
+            <div class="btn-group">
+              <button id="options-play" class="btn btn-default">Play</button>
+              <button id="options-pause" class="btn btn-default">Pause</button>
+              <button id="options-step" class="btn btn-default">Step</button>
+              <button id="options-restart" class="btn btn-default">Restart</button>
+            </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-9 col-md-9">
+          <div class="demo-container-canvas">
+            <canvas id="pendulum-canvas" class="demo-canvas"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>Pendulum Physics</h1>
+
+      <h2>Intrinsic Properties</h2>
+      <p>
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<% include ../footer.html %>
+<script src="/src/plexi.js"></script>
+<script src="/src/core/game.js"></script>
+<script src="/src/core/vec2.js"></script>
+<script src="/src/core/particle.js"></script>
+<script src="/scripts/pendulum-demo.js"></script>
+
