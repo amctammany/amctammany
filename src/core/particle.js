@@ -38,9 +38,11 @@ Particle.prototype.update = function (delta) {
  * @param {CanvasRenderingContext2D} ctx - Canvas context to draw to
  */
 
-Particle.prototype.draw = function (ctx) {
+Particle.prototype.draw = function (transFn, ctx) {
+  var pos = transFn(this.x, this.y);
+
   ctx.beginPath();
-  ctx.arc(this.x, this.y, 15, 0, 6.28, 0);
+  ctx.arc(pos.x, pos.y, 15, 0, 6.28, 0);
   ctx.closePath();
   ctx.fill();
 };

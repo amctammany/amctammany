@@ -19,12 +19,23 @@ Canvas.prototype.reset = function () {
   this.canvas.height = this.height;
 };
 
+var translate = function (width, height, x, y) {
+  return {
+    x: (x + 1) / 2 * width,
+    y: (y + 1) / 2 * height,
+  };
+};
+
+Canvas.prototype.clear = function () {
+  this.ctx.clearRect(0, 0, this.width, this.height);
+};
 Canvas.prototype.draw = function (particles) {
+  this.clear();
   var ctx = this.ctx;
-  var width = this.width, height = this.height;
-  ctx.clearRect(0, 0, width, height);
+  var transFn = partial(translate, this.width, this.height);
   particles.forEach(function (p) {
-    ctx.fillRect((p.x + 1) / 2 * width, (p.y + 1) / 2 * height, 10, 10 );
+    p.draw(transFn, ctx);
+    //ctx.fillRect((p.x + 1) / 2 * width, (p.y + 1) / 2 * height, 10, 10 );
 
   });
 };
