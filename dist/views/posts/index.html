@@ -10,11 +10,14 @@
           </span>
         </div>
         <div class="tag-listings">
-          <div class="tag-items">
+          <ul class="list-group">
             <% tags.forEach(function (tag) { %>
-              <span class="tag"><%= tag.name %></span>
+              <li class="list-group-item">
+                <span class="badge"><%= tag.posts.length %></span>
+                <%= tag.name %>
+              </li>
             <% }) %>
-          </div>
+          </ul>
         </div>
         
       </div>

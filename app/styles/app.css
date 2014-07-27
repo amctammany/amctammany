@@ -70,14 +70,3 @@
 .post-sidebar .tag-listings {
   padding: 5px;
 }
-.post-sidebar .tag-listings .tag-items {
-  text-align: center;
-}
-.post-sidebar .tag-listings .tag-items .tag {
-  display: inline-block;
-  padding: 2px 5px;
-  margin: 2px;
-  background: #aee;
-  border: 1px solid #000;
-  border-radius: 5px;
-}
