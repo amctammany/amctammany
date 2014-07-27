@@ -11,7 +11,7 @@ var Game = function (id) {
   this._vars = {};
   this._actions = {};
   this._canvii = {};
-  this._particles = [];
+  this._world = new World();
   if ($ !== undefined) {
     this.$div = $('#' + id);
   }
@@ -120,7 +120,7 @@ Game.prototype.restart = function () {
 };
 
 Game.prototype.reset = function () {
-  this._particles = [];
+  this._world.reset();
 };
 
 /**
@@ -129,9 +129,10 @@ Game.prototype.reset = function () {
  * @param {Object} config - Particle Intrinsic Properties
  */
 Game.prototype.addParticle = function (config) {
-  var p = new Particle(config);
-  this._particles.push(p);
-  return p;
+  return this._world.addParticle(config);
+  //var p = new Particle(config);
+  //this._particles.push(p);
+  //return p;
 };
 
 /**
@@ -139,7 +140,7 @@ Game.prototype.addParticle = function (config) {
  * @memberof Game
  */
 Game.prototype.draw = function (canvas) {
-  this.mainCanvas.draw(this._particles);
+  this.mainCanvas.draw(this._world.particles);
   //var ctx = this._canvii[canvas].ctx;
   //this._particles.forEach(function (p) {
     //p.draw(ctx);
@@ -152,7 +153,7 @@ Game.prototype.draw = function (canvas) {
  * @param {float} delta - Time step
  */
 Game.prototype.update = function (delta) {
-  this._particles.forEach(function (p) {
+  this._world.particles.forEach(function (p) {
     p.update(delta);
   });
 };
@@ -166,14 +167,14 @@ Game.prototype.update = function (delta) {
 Game.prototype.animate = function (canvas) {
   //this.clear(canvas);
   this.update(0.3);
-  this.mainCanvas.draw(this._particles);
+  this.mainCanvas.draw(this._world.particles);
   this.animationFrame = window.requestAnimationFrame(this.animate.bind(this, canvas));
 
 };
 
 Game.prototype.step = function (delta) {
   this.update(delta);
-  this.mainCanvas.draw(this._particles);
+  this.mainCanvas.draw(this._world.particles);
 };
 
 Game.prototype.start = function () {

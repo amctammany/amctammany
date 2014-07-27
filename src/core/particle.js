@@ -1,4 +1,8 @@
 'use strict';
+/**
+ * @class Particle
+ * @param {Object} config - Config object
+ */
 
 var Particle = function (config) {
   config = config || {};
@@ -18,6 +22,7 @@ var Particle = function (config) {
 
 /**
  * @function update
+ * @memberof Particle
  * @param {float} delta - Time step
  */
 Particle.prototype.update = function (delta) {

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: core/particle.js</title>
+    <title>JSDoc: Source: core/world.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: core/particle.js</h1>
+    <h1 class="page-title">Source: core/world.js</h1>
 
     
 
@@ -26,57 +26,39 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>'use strict';
+
 /**
- * @class Particle
- * @param {Object} config - Config object
+ * @class World
+ * @property Array particles - Particle array
+ * @property Array forces - Global force array
+ * @property Array behaviors - Global behavior array
+ * @property float damping - Global damping coefficient
  */
 
-var Particle = function (config) {
-  config = config || {};
-  this.x = config.x || 0;
-  this.y = config.y || 0;
-  this.mass = config.mass || 1;
-  this.velocity = config.velocity || new Vec2(0, 0);
-  //this.current = {
-    //x: 0,
-    //y: 0
-  //};
-  //this.previous = {
-    //x: 0,
-    //y: 0
-  //};
+var World = function () {
+  this.particles = [];
+  this.forces = [];
+  this.behaviors = [];
+  this.damping = 0.00;
 };
 
 /**
- * @function update
- * @memberof Particle
- * @param {float} delta - Time step
+ * @function reset
+ * @memberof World
  */
-Particle.prototype.update = function (delta) {
-  this.x += this.velocity.x * delta;
-  this.y += this.velocity.y * delta;
-
-  if (this.x &lt; -1 || this.x > 1) {
-    this.velocity.x *= -1;
-  }
-  if (this.y &lt; -1 || this.y > 1) {
-    this.velocity.y *= -1;
-  }
+World.prototype.reset = function () {
+  this.particles = [];
 };
 
 /**
- * @function draw
- * @memberof Particle
- * @param {CanvasRenderingContext2D} ctx - Canvas context to draw to
+ * @function addParticle
+ * @memberof World
+ * @param Object config - Config object
  */
-
-Particle.prototype.draw = function (transFn, ctx) {
-  var pos = transFn(this.x, this.y);
-
-  ctx.beginPath();
-  ctx.arc(pos.x, pos.y, 15, 0, 6.28, 0);
-  ctx.closePath();
-  ctx.fill();
+World.prototype.addParticle = function (config) {
+  var p = new Particle(config);
+  this.particles.push(p);
+  return p;
 };
 
 </code></pre>
