@@ -1,8 +1,10 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
+    session = require('express-session'),
     path = require('path');
 
-module.exports = function (app) {
+module.exports = function (app, passport) {
   var env = process.env.NODE_ENV;
   if ('production' === env) {
     app.set('port', process.env.PORT || 9000);
@@ -13,6 +15,11 @@ module.exports = function (app) {
     app.use('/', express.static(path.join(app.directory, 'dist')));
     app.use('/src', express.static(path.join(app.directory, 'src')));
     app.use('/doc', express.static(path.join(app.directory, 'doc')));
-    app.use(bodyParser.urlencoded());
+    app.use(bodyParser());
+    app.use(cookieParser())
+
+    app.use(session({secret: 'mysupersecretpassword'}));
+    app.use(passport.initialize());
+    app.use(passport.session());
   }
 };

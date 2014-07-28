@@ -53,11 +53,11 @@ module.exports = function (app) {
   });
 
   // GET /posts/new => New
-  router.get('/new', function (req, res) {
+  router.get('/new', app.isLoggedIn, function (req, res) {
     res.render('posts/new', {post: 'foo'});
   });
   // GET /posts/id/edit => Edit
-  router.get('/:id/edit', function (req, res) {
+  router.get('/:id/edit', app.isLoggedIn, function (req, res) {
     Post.findOne({urlString: req.params.id})
       .populate('tags')
       .exec(function (err, post) {
@@ -78,7 +78,7 @@ module.exports = function (app) {
 
 
   // DEL /posts/id => Remove
-  router.delete('/:id',  function (req, res) {
+  router.delete('/:id', app.isLoggedIn,  function (req, res) {
     Post.findOneAndRemove({urlString: req.params.id})
       .populate('tags')
       .exec(function (err, post) {
@@ -95,7 +95,7 @@ module.exports = function (app) {
   });
 
   // POST /posts => Create
-  router.post('/', function (req, res) {
+  router.post('/', app.isLoggedIn, function (req, res) {
     console.log(req.body);
     var post = new Post(req.body);
     post.save(function (err) {
@@ -105,7 +105,7 @@ module.exports = function (app) {
   });
 
   // POST /posts/id => Update
-  router.post('/:id', function (req, res) {
+  router.post('/:id', app.isLoggedIn, function (req, res) {
     console.log('update');
     Post.findOne({urlString: req.params.id}, function (err, post) {
       if (err) {console.log(err);}

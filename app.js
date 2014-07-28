@@ -1,7 +1,8 @@
 var express = require('express'),
     routes = require('./routes'),
     mongoose = require('mongoose'),
-    path = require('path');
+    path = require('path')
+    passport = require('passport');
 
 var app = express();
 app.directory = __dirname;
@@ -20,7 +21,7 @@ if (mongoUrl) {
 }
 
 require('./db');
-require('./config/environments')(app);
-require('./routes')(app);
+require('./config/environments')(app, passport);
+require('./routes')(app, passport);
 
 module.exports = app;

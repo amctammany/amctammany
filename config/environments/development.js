@@ -1,10 +1,14 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
-    path = require('path');
+    cookieParser = require('cookie-parser'),
+    session = require('express-session'),
+    path = require('path'),
+    mongoose = require('mongoose');
 
-module.exports = function (app) {
+module.exports = function (app, passport) {
   var env = process.env.NODE_ENV || 'development';
   if ('development' === env) {
+
     app.use(function staticsPlaceholder(req, res, next) {
         return next();
     });
@@ -17,7 +21,12 @@ module.exports = function (app) {
     app.use('/', express.static(path.join(app.directory, 'app')));
     app.use('/src', express.static(path.join(app.directory, 'src')));
     app.use('/doc', express.static(path.join(app.directory, 'doc')));
-    app.use(bodyParser.urlencoded());
+    app.use(cookieParser());
+    app.use(bodyParser());
+
+    app.use(session({secret: 'mysupersecretpassword'}));
+    app.use(passport.initialize());
+    app.use(passport.session());
 
     app.use(function middlewarePlaceholder(req, res, next) {
       return next();
