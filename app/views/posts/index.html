@@ -24,14 +24,17 @@
     </div>
 
     <div class="col-lg-9 col-md-9 col-sm-8">
-      <div class="well">
-        <% posts.forEach(function(post) { %>
-        <div class="post">
+      <% posts.forEach(function(post) { %>
+        <div class="post well">
         
           <header>
-            <a href="/posts/<%= post.urlString %>" class="title"><%= post.title %></a>
-            <span class="timestamp"><%= (new Date(post.createdAt)).toDateString() %></span>
+            <div class="title">
+              <a href="/posts/<%= post.urlString %>"><%= post.title %></a>
+            
+              <span class="timestamp"><%= (new Date(post.createdAt)).toDateString() %></span>
+            </div>
             <div class="tags">
+              Tags:
               <% post.tags.forEach(function (tag) { %>
               <a href="/tags/<%= tag.name %>" class="tag"><%= tag.name %></a>
 
@@ -45,7 +48,7 @@
         </div>
 
 
-        <% }) %>
+      <% }) %>
       </div>
     </div>
   </div>

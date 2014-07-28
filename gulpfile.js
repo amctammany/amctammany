@@ -21,7 +21,7 @@ gulp.task('minify', function () {
   gulp.src('src/**/*.js')
     .pipe(plugins.uglify())
     .pipe(plugins.concat('plexi.js'))
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('app/scripts/'))
 });
 
 gulp.task('stylus', function () {
@@ -51,7 +51,7 @@ gulp.task('usemin', function () {
     .pipe(gulp.dest('dist/'))
 })
 
-gulp.task('build', ['clean', 'stylus', 'jshint', 'test'], function () {
+gulp.task('build', ['clean', 'stylus', 'minify', 'jshint', 'test'], function () {
   // Copy over HTML
   gulp.src('app/views/**/*.html')
     .pipe(gulp.dest('dist/views/'));
@@ -77,10 +77,11 @@ gulp.task('jsdoc', function () {
     .pipe(plugins.jsdoc('./doc'));
 });
 
-gulp.task('server', ['stylus'], function () {
+gulp.task('server', ['stylus', 'minify'], function () {
   process.env.NODE_ENV = 'development';
   require('./app').listen(3000);
   gulp.watch('app/styles/**/*.styl', ['stylus']);
+  gulp.watch('src/**/*.js', ['minify']);
 
   gulp.src(['app/scripts/**/*.js', 'app/views/**/*.html', 'app/styles/app.css', 'src/**/*.js'])
     .pipe(plugins.watch())
