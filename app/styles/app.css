@@ -39,6 +39,7 @@ body {
   margin: 0 auto;
 }
 
+
 .post {
   padding: 10px;
   background: #eee;
@@ -88,3 +89,4 @@ body {
 .post-sidebar .tag-listings {
   padding: 5px;
 }
+
