@@ -80,12 +80,10 @@ gulp.task('jsdoc', function () {
 gulp.task('server', ['stylus', 'minify'], function () {
   process.env.NODE_ENV = 'development';
   require('./app').listen(3000);
+  plugins.livereload.listen();
   gulp.watch('app/styles/**/*.styl', ['stylus']);
   gulp.watch('src/**/*.js', ['minify']);
-
-  gulp.src(['app/scripts/**/*.js', 'app/views/**/*.html', 'app/styles/app.css', 'src/**/*.js'])
-    .pipe(plugins.watch())
-    .pipe(plugins.livereload())
+  gulp.watch(['app/scripts/**/*.js', 'app/views/**/*.html', 'app/styles/app.css']).on('change', plugins.livereload.changed);
 
 });
 

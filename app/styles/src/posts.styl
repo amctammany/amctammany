@@ -1,11 +1,16 @@
-second-color = red
+@import 'variables'
 .post
   padding 10px
 
-  background second-color
+  background primary-color
+  .post-body
+    padding 20px
+    background secondary-color
+    padding-bottom 20px
   header
-    border-bottom 1px solid black
-    border-right 1px solid black
+    border-radius 3px
+    background secondary-color
+    padding 5px
 
     .title
       display block
@@ -25,12 +30,19 @@ second-color = red
         padding 1px
 
   .intro
+    border-radius 3px
     margin 10px
+    padding 5px
+    background secondary-color
+
+  .content
+    background secondary-color
+    margin 5px
     padding 5px
 
 
 .post-sidebar
-  background #F2F6F7
+  background primary-color
   .tag-listings
     padding 5px
 
