@@ -59,6 +59,8 @@ gulp.task('build', ['clean', 'stylus', 'minify', 'jshint', 'test'], function () 
     .pipe(gulp.dest('dist/scripts/'));
   gulp.src(['app/views/header.html', 'app/views/footer.html'])
     .pipe(plugins.usemin({
+      assetsDir: 'app/',
+      outputRelativePath: '../',
       css: [plugins.minifyCss(), 'concat'],
       html: [plugins.minifyHtml({empty: true})],
       js: [plugins.uglify()]

@@ -2,9 +2,7 @@
 
 var mongoose = require('mongoose'),
     express = require('express'),
-    Showdown = require('showdown'),
-    async = require('async'),
-    converter = new Showdown.converter();
+    async = require('async');
 
 module.exports = function (app) {
   var Post = mongoose.model('Post');
@@ -64,7 +62,7 @@ module.exports = function (app) {
       .populate('tags')
       .exec(function (err, post) {
         if (err) { console.log(err); }
-        res.render('posts/edit', {post: post, content: converter.makeHtml(post.content)})
+        res.render('posts/edit', {post: post})
       });
   });
 
@@ -74,7 +72,7 @@ module.exports = function (app) {
       .populate('tags')
       .exec(function (err, post) {
         if (err) { console.log(err); }
-        res.render('posts/show', {post: post, content: converter.makeHtml(post.content)})
+        res.render('posts/show', {post: post})
       });
   });
 

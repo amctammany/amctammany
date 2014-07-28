@@ -1,7 +1,9 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    Showdown = require('showdown'),
+    converter = new Showdown.converter();
 
 var PostSchema = new Schema({
   title: String,
@@ -9,6 +11,7 @@ var PostSchema = new Schema({
   tags: [{type: Schema.Types.ObjectId, ref: 'Tag'}],
   intro: String,
   content: String,
+  html: String,
   urlString: String,
   createdAt: {type: Date, default: Date.now()}
 });
@@ -18,8 +21,14 @@ PostSchema.pre('save', function (next) {
     this.urlString = this.title.toLocaleLowerCase().replace(/\s+/g, '-');
   }
   this.tagNames = this.tagNames.toLocaleLowerCase();
+  this.html = converter.makeHtml(this.content);
+  //this.createHtml();
   this.parseTags(next);
 });
+PostSchema.methods.createHtml = function (cb) {
+  this.html = converter.makeHtml(this.content);
+  cb();
+}
 
 PostSchema.methods.parseTags = function (cb) {
   if (!this.tagNames) {return cb();}

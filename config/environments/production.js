@@ -10,7 +10,7 @@ module.exports = function (app) {
     app.set('views', path.join(app.directory, '/dist/views'));
     app.engine('html', require('ejs').renderFile);
     app.set('view engine', 'html');
-    app.use(express.static(path.join(app.directory, 'dist')));
+    app.use('/', express.static(path.join(app.directory, 'dist')));
     app.use('/src', express.static(path.join(app.directory, 'src')));
     app.use('/doc', express.static(path.join(app.directory, 'doc')));
     app.use(bodyParser.urlencoded());
