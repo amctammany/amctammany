@@ -83,6 +83,9 @@ body {
   margin: 5px;
   padding: 5px;
 }
+.post .content p {
+  text-indent: 25px;
+}
 .post-sidebar {
   background: #eee;
 }

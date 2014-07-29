@@ -28,8 +28,8 @@ module.exports = function (app) {
 
 
   var router = express.Router();
-  var postsQuery = Post.find({}).populate('tags');
-  var tagsQuery = Tag.find({});
+  var postsQuery = Post.find({}).populate('tags').sort('-createdAt');
+  var tagsQuery = Tag.find({}).sort('+name');
   var resources = {
     posts: postsQuery.exec.bind(postsQuery),
     tags: tagsQuery.exec.bind(tagsQuery),
@@ -79,6 +79,7 @@ module.exports = function (app) {
 
   // DEL /posts/id => Remove
   router.delete('/:id', app.isLoggedIn,  function (req, res) {
+    console.log('delete');
     Post.findOneAndRemove({urlString: req.params.id})
       .populate('tags')
       .exec(function (err, post) {

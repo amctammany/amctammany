@@ -2,13 +2,28 @@
 var express = require('express');
 var passport = require('passport');
 var mongoose = require('mongoose');
+var async = require('async');
 module.exports = function (app) {
 
-  var User = mongoose.model('User');
+  var Post = mongoose.model('Post');
+  var Tag = mongoose.model('Tag');
+  var postsQuery = Post.find({}).populate('tags').sort('-createdAt');
+  var tagsQuery = Tag.find({}).sort('+name');
+  var resources = {
+    posts: postsQuery.exec.bind(postsQuery),
+    tags: tagsQuery.exec.bind(tagsQuery),
+  };
+
 
   var router = express.Router();
   router.get('/', app.isLoggedIn, function (req, res) {
-    res.render('admin/index', {demos: 'foojA'});
+    async.parallel(resources, function (err, result) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      res.render('admin/index', {posts: result.posts, tags: result.tags});
+    })
   });
 
   router.get('/login', function (req, res) {
