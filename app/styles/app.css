@@ -77,20 +77,28 @@ body {
   font-size: 0.7em;
   font-style: italic;
 }
-.post header .tags {
+.post header .details {
+  height: 25px;
+}
+.post header .details .glyphicon {
+  height: 25px;
+  vertical-align: top;
+}
+.post header .details .timestamp {
+  display: inline-block;
+  font-size: 0.9em;
+  font-style: italic;
+}
+.post header .details .tags {
+  display: inline-block;
   clear: both;
   margin: 5px;
   font: small-caps normal 1.2em Arial;
 }
-.post header .tags .tag {
+.post header .details .tags .tag {
+  vertical-align: top;
   margin: 1px;
   padding: 1px;
-}
-.post .intro {
-  border-radius: 3px;
-  margin: 10px;
-  padding: 5px;
-  background: #fafafa;
 }
 .post .content {
   background: #fafafa;
