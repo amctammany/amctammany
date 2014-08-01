@@ -3,9 +3,10 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
     path = require('path'),
+    passport = require('passport'),
     mongoose = require('mongoose');
 
-module.exports = function (app, passport) {
+module.exports = function (app) {
   var env = process.env.NODE_ENV || 'development';
   if ('development' === env) {
 
@@ -14,6 +15,13 @@ module.exports = function (app, passport) {
     });
 
     console.log('dev');
+
+    app.isLoggedIn = function (req, res, next) {
+      if (req.isAuthenticated()) {
+        return next();
+      }
+      res.redirect('/admin/login');
+    };
     app.set('port', process.env.PORT || 9000);
     app.set('views', path.join(app.directory, '/app/views'));
     app.engine('html', require('ejs').renderFile);

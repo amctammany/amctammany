@@ -92,4 +92,9 @@ body {
 .post-sidebar .tag-listings {
   padding: 5px;
 }
+.post-sidebar .tag-listings .label {
+  display: inline-block;
+  margin: 2px;
+  padding: 2px 4px;
+}
 

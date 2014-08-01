@@ -10,14 +10,12 @@
           </span>
         </div>
         <div class="tag-listings">
-          <ul class="list-group">
             <% tags.forEach(function (tag) { %>
-              <li class="list-group-item">
-                <span class="badge"><%= tag.posts.length %></span>
+              <span class="label label-default">
+                <!--<span class="badge"><%= tag.posts.length %></span>-->
                 <%= tag.name %>
-              </li>
+              </span>
             <% }) %>
-          </ul>
         </div>
         
       </div>
@@ -55,5 +53,4 @@
   </div>
 </div>
 
-<!--<%= posts %>-->
 <% include ../footer.html %>
