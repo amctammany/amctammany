@@ -15,6 +15,10 @@ module.exports = function (app) {
     res.render('demos/pendulum', {demo: 'Pendulum'});
   });
 
+  router.get('/d3', function (req, res) {
+    res.render('demos/d3', {demo: 'D3'});
+  });
+
   app.use('/demos', router);
 
 };
