@@ -10,4 +10,4 @@ Body.prototype.draw = function (transFn, ctx) {
   ctx.beginPath();
   ctx.fillRect(pos.x, pos.y, this.width, this.height);
   ctx.closePath();
-}
+};

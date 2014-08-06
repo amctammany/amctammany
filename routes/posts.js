@@ -37,6 +37,7 @@ module.exports = function (app) {
 
   // GET /posts => Index
   router.get('/', function (req, res) {
+    //console.log(req.query);
     //Post.find()
       //.populate('tags')
       //.exec(function (err, posts) {
