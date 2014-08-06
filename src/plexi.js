@@ -19,6 +19,11 @@ var plexi = {
     return new Game(id);
 
   },
+  extend: function (obj, config) {
+    for (var key in config) {
+      obj[key] = config[key];
+    }
+  }
 };
 
 

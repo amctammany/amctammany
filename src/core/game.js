@@ -11,6 +11,7 @@ var Game = function (id) {
   this._vars = {};
   this._actions = {};
   this._canvii = {};
+  this._bodyTypes = {};
   this._world = new World();
   if ($ !== undefined) {
     this.$div = $('#' + id);
@@ -167,7 +168,7 @@ Game.prototype.update = function (delta) {
 Game.prototype.animate = function (canvas) {
   //this.clear(canvas);
   this.update(0.3);
-  this.mainCanvas.draw(this._world.particles);
+  this.mainCanvas.drawBodies(this._world.bodies);
   this.animationFrame = window.requestAnimationFrame(this.animate.bind(this, canvas));
 
 };
@@ -189,4 +190,29 @@ Game.prototype.stop = function () {
     window.cancelAnimationFrame(this.animationFrame);
     this.animationFrame = null;
   }
+};
+
+/**
+ * @function defineBodyType
+ * @memberof Game
+ * @param String id - Unique string identifier
+ * @param Object config - Body definition object
+ */
+Game.prototype.defineBodyType = function (id, config) {
+  this._bodyTypes[id] = new BodyType(id, config);
+  return this._bodyTypes[id];
+
+};
+
+/**
+ * @function addBody
+ * @memberof Game
+ * @param String type - BodyType Name
+ * @param Object config - Body config object
+ */
+Game.prototype.addBody = function (type, config) {
+
+  var body = this._bodyTypes[type].create(config);
+  this._world.addBody(body);
+  return body;
 };

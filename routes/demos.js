@@ -19,6 +19,10 @@ module.exports = function (app) {
     res.render('demos/d3', {demo: 'D3'});
   });
 
+  router.get('/pong', function (req, res) {
+    res.render('demos/pong', {demo: 'Pong'});
+  });
+
   app.use('/demos', router);
 
 };
