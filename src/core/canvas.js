@@ -17,6 +17,7 @@ Canvas.prototype.reset = function () {
 
   this.height = this.width * this.aspect;
   this.canvas.height = this.height;
+  this.transFn = partial(translate, this.width, this.height);
 };
 
 var translate = function (width, height, x, y) {
@@ -42,7 +43,7 @@ Canvas.prototype.draw = function (particles) {
 Canvas.prototype.drawBodies = function (bodies) {
   this.clear();
   var ctx = this.ctx;
-  var transFn = partial(translate, this.width, this.height);
+  var transFn = this.transFn;
   bodies.forEach(function (b) {
     b.draw(transFn, ctx);
     //ctx.fillRect((p.x + 1) / 2 * width, (p.y + 1) / 2 * height, 10, 10 );

@@ -157,6 +157,9 @@ Game.prototype.update = function (delta) {
   this._world.particles.forEach(function (p) {
     p.update(delta);
   });
+  this._world.bodies.forEach(function (b) {
+    b.update(delta);
+  });
 };
 
 
@@ -167,7 +170,7 @@ Game.prototype.update = function (delta) {
 
 Game.prototype.animate = function (canvas) {
   //this.clear(canvas);
-  this.update(0.3);
+  this.update(0.1);
   this.mainCanvas.drawBodies(this._world.bodies);
   this.animationFrame = window.requestAnimationFrame(this.animate.bind(this, canvas));
 
