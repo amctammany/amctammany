@@ -1,4 +1,5 @@
 'use strict';
+var plexi = plexi || {};
 /**
  * @class Particle
  * @param {Object} config - Config object
@@ -9,7 +10,7 @@ var Particle = function (config) {
   this.x = config.x || 0;
   this.y = config.y || 0;
   this.mass = config.mass || 1;
-  this.velocity = config.velocity || new Vec2(0, 0);
+  this.velocity = config.velocity || new plexi.Vec2(0, 0);
   //this.current = {
     //x: 0,
     //y: 0
@@ -52,3 +53,4 @@ Particle.prototype.draw = function (transFn, ctx) {
   ctx.fill();
 };
 
+plexi.Particle = Particle;

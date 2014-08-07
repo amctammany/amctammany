@@ -1,4 +1,5 @@
 'use strict';
+var plexi = plexi || {};
 
 var Body = function (type, config) {
   plexi.extend(this, type.constants);
@@ -24,4 +25,6 @@ Body.prototype.update = function (delta) {
       this.vy *= -1;
     }
   }
-}
+};
+
+plexi.Body = Body;

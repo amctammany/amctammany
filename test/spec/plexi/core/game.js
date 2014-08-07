@@ -11,6 +11,14 @@ describe('Game', function () {
     expect(game.id).toBe('id');
   });
 
+  it('should create game variables', function () {
+    game.vars({
+      v1: 'foo',
+      v2: 'bar'
+    });
+    expect(game.var('v1')).toBe('foo');
+    expect(game.var('v2')).toBe('bar');
+  });
   it('should define game body', function () {
     var boxType = game.defineBodyType('box', {
       props: ['x', 'y'],

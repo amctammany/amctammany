@@ -1,5 +1,5 @@
 'use strict';
-
+var plexi = plexi || {};
 /**
  * @class World
  * @property Array particles - Particle array
@@ -32,7 +32,7 @@ World.prototype.reset = function () {
 World.prototype.addBody = function (body) {
   this.bodies.push(body);
   return body;
-}
+};
 
 /**
  * @function addParticle
@@ -40,8 +40,9 @@ World.prototype.addBody = function (body) {
  * @param Object config - Config object
  */
 World.prototype.addParticle = function (config) {
-  var p = new Particle(config);
+  var p = new plexi.Particle(config);
   this.particles.push(p);
   return p;
 };
 
+plexi.World = World;

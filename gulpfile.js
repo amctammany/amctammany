@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
     path = require('path'),
+    stylish = require('jshint-stylish'),
     gulpLoadPlugins = require('gulp-load-plugins'),
     plugins = gulpLoadPlugins();
 
@@ -16,6 +17,11 @@ gulp.task('test', function () {
     .on('error', function (err) {
       throw err;
     });
+});
+gulp.task('jshint', function () {
+  gulp.src('./src/**/*.js')
+    .pipe(plugins.jshint())
+    .pipe(plugins.jshint.reporter(stylish));
 });
 gulp.task('minify', function () {
   gulp.src('src/**/*.js')
@@ -36,11 +42,6 @@ gulp.task('clean', function () {
     .pipe(plugins.clean());
 });
 
-gulp.task('jshint', function () {
-  gulp.src('src/**/*.js')
-    //.pipe(plugins.jshint()
-
-});
 gulp.task('usemin', function () {
   gulp.src('app/**/*.html')
     .pipe(plugins.usemin({

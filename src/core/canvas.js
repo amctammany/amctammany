@@ -1,4 +1,11 @@
 'use strict';
+var plexi = plexi || {};
+var translate = function (width, height, x, y) {
+  return {
+    x: (x + 1) / 2 * width,
+    y: (y + 1) / 2 * height,
+  };
+};
 
 var Canvas = function (name, config) {
   this.name = name;
@@ -17,15 +24,9 @@ Canvas.prototype.reset = function () {
 
   this.height = this.width * this.aspect;
   this.canvas.height = this.height;
-  this.transFn = partial(translate, this.width, this.height);
+  this.transFn = plexi.partial(translate, this.width, this.height);
 };
 
-var translate = function (width, height, x, y) {
-  return {
-    x: (x + 1) / 2 * width,
-    y: (y + 1) / 2 * height,
-  };
-};
 
 Canvas.prototype.clear = function () {
   this.ctx.clearRect(0, 0, this.width, this.height);
@@ -33,13 +34,13 @@ Canvas.prototype.clear = function () {
 Canvas.prototype.draw = function (particles) {
   this.clear();
   var ctx = this.ctx;
-  var transFn = partial(translate, this.width, this.height);
+  var transFn = this.transFn;
   particles.forEach(function (p) {
     p.draw(transFn, ctx);
     //ctx.fillRect((p.x + 1) / 2 * width, (p.y + 1) / 2 * height, 10, 10 );
 
   });
-}
+};
 Canvas.prototype.drawBodies = function (bodies) {
   this.clear();
   var ctx = this.ctx;
@@ -49,4 +50,6 @@ Canvas.prototype.drawBodies = function (bodies) {
     //ctx.fillRect((p.x + 1) / 2 * width, (p.y + 1) / 2 * height, 10, 10 );
 
   });
-};;
+};
+
+plexi.Canvas = Canvas;

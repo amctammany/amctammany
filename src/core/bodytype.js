@@ -1,5 +1,6 @@
 'use strict';
 
+var plexi = plexi || {};
 /**
  * @class BodyType
  * @param String id - BodyType identifier
@@ -24,7 +25,8 @@ BodyType.prototype.create = function (config) {
       return false;
     }
   }
-  var body = new Body(this, config);
+  var body = new plexi.Body(this, config);
   return body;
-  console.log('created');
 };
+
+plexi.BodyType = BodyType;

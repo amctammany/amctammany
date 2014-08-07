@@ -1,6 +1,7 @@
 'use strict';
 
 var $;
+var plexi = plexi || {};
 /**
  * @class Game
  * @param {String} id - DOM Identifier
@@ -12,7 +13,7 @@ var Game = function (id) {
   this._actions = {};
   this._canvii = {};
   this._bodyTypes = {};
-  this._world = new World();
+  this._world = new plexi.World();
   if ($ !== undefined) {
     this.$div = $('#' + id);
   }
@@ -99,7 +100,7 @@ Game.prototype.canvas = function (name, properties) {
   //$.extend(this._canvii[name], properties);
   //this.mainCanvas = name;
   //
-  var canvas = new Canvas(name, properties);
+  var canvas = new plexi.Canvas(name, properties);
   this._canvii[name] = canvas;
   this.mainCanvas = canvas;
 };
@@ -176,10 +177,10 @@ Game.prototype.animate = function (canvas) {
 
 };
 var animFn;
-function animate (canvas) {
-  this.update(0.1);
-  canvas.drawBodies(this._world.bodies);
-  this.animFrame = window.requestAnimationFrame(animFn)
+function animate (game, canvas) {
+  game.update(0.1);
+  canvas.drawBodies(game._world.bodies);
+  game.animFrame = window.requestAnimationFrame(animFn);
 }
 Game.prototype.step = function (delta) {
   this.update(delta);
@@ -187,12 +188,12 @@ Game.prototype.step = function (delta) {
 };
 
 Game.prototype.start = function () {
-  animFn = animate.bind(this, this.mainCanvas);
+  animFn = animate.bind(null, this, this.mainCanvas);
 
   if (this.animationFrame) {
     return;
   }
-  window.requestAnimationFrame(animFn)
+  window.requestAnimationFrame(animFn);
   //animate(this, this.mainCanvas)
   //this.animate(this.mainCanvas);
 };
@@ -211,7 +212,7 @@ Game.prototype.stop = function () {
  * @param Object config - Body definition object
  */
 Game.prototype.defineBodyType = function (id, config) {
-  this._bodyTypes[id] = new BodyType(id, config);
+  this._bodyTypes[id] = new plexi.BodyType(id, config);
   return this._bodyTypes[id];
 
 };
@@ -228,3 +229,5 @@ Game.prototype.addBody = function (type, config) {
   this._world.addBody(body);
   return body;
 };
+
+plexi.Game = Game;
