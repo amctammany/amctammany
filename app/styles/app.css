@@ -105,6 +105,13 @@ body {
 .post .content p {
   text-indent: 25px;
 }
+.post .content img {
+  padding: 10px;
+  background: #eee;
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+}
 .post-sidebar {
   background: #eee;
 }

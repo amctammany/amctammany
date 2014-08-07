@@ -57,6 +57,8 @@ gulp.task('build', ['clean', 'stylus', 'minify', 'jshint', 'test'], function () 
     .pipe(gulp.dest('dist/views/'));
   gulp.src('app/scripts/**/*.js')
     .pipe(gulp.dest('dist/scripts/'));
+  gulp.src('app/images/**/*.{png,bmp}')
+    .pipe(gulp.dest('dist/images'));
   gulp.src(['app/views/header.html', 'app/views/footer.html'])
     .pipe(plugins.usemin({
       assetsDir: 'app/',

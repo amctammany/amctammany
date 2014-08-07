@@ -28,6 +28,7 @@ module.exports = function (app) {
     app.set('view engine', 'html');
     app.use('/', express.static(path.join(app.directory, 'app')));
     app.use('/src', express.static(path.join(app.directory, 'src')));
+    app.use('/images', express.static(path.join(app.directory, 'images')));
     app.use('/doc', express.static(path.join(app.directory, 'doc')));
     app.use(cookieParser());
     app.use(bodyParser());

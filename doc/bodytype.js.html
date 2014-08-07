@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: plexi.js</title>
+    <title>JSDoc: Source: core/bodytype.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: plexi.js</h1>
+    <h1 class="page-title">Source: core/bodytype.js</h1>
 
     
 
@@ -28,39 +28,32 @@
             <pre class="prettyprint source linenums"><code>'use strict';
 
 /**
- * @module plexi
- * @namespace plexi
+ * @class BodyType
+ * @param String id - BodyType identifier
  */
-
-
-var plexi = {
-
-  /**
-   * createGame
-   * @memberof plexi
-   * @instance
-   * @param {String} id - Game DOM Identifier
-   * @returns {Game}
-   */
-  createGame: function (id) {
-    return new Game(id);
-
-  },
-  extend: function (obj, config) {
-    for (var key in config) {
-      obj[key] = config[key];
+var BodyType = function (id, config) {
+  this.id = id;
+  this.props = [];
+  this.constants = {};
+  for (var key in config) {
+    if (key === 'props') {
+      this.props = config.props;
+    } else {
+      this.constants[key] = config[key];
     }
   }
 };
 
-
-function partial (fn) {
-  var slice = Array.prototype.slice;
-  var args = slice.call(arguments, 1);
-
-  return function () {
-    return fn.apply(this, args.concat(slice.call(arguments, 0)));
-  };
+BodyType.prototype.create = function (config) {
+  for (var i = 0, l = this.props.length; i &lt; l; i++) {
+    var prop = this.props[i];
+    if (!config.hasOwnProperty(prop)) {
+      return false;
+    }
+  }
+  var body = new Body(this, config);
+  return body;
+  console.log('created');
 };
 </code></pre>
         </article>
