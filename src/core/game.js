@@ -175,17 +175,26 @@ Game.prototype.animate = function (canvas) {
   this.animationFrame = window.requestAnimationFrame(this.animate.bind(this, canvas));
 
 };
-
+var animFn;
+function animate (canvas) {
+  this.update(0.1);
+  canvas.drawBodies(this._world.bodies);
+  this.animFrame = window.requestAnimationFrame(animFn)
+}
 Game.prototype.step = function (delta) {
   this.update(delta);
   this.mainCanvas.draw(this._world.particles);
 };
 
 Game.prototype.start = function () {
+  animFn = animate.bind(this, this.mainCanvas);
+
   if (this.animationFrame) {
     return;
   }
-  this.animate(this.mainCanvas);
+  window.requestAnimationFrame(animFn)
+  //animate(this, this.mainCanvas)
+  //this.animate(this.mainCanvas);
 };
 
 Game.prototype.stop = function () {

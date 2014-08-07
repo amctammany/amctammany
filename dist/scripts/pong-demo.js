@@ -38,5 +38,5 @@ var b = game.addBody('ball', {
 });
 
 game.bootstrap(function () {
-  this.animate('pong-canvas');
+  this.start('pong-canvas');
 });
