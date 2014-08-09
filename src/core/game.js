@@ -178,7 +178,7 @@ Game.prototype.animate = function (canvas) {
 };
 var animFn;
 function animate (game, canvas) {
-  game.update(0.1);
+  game.update(0.08);
   canvas.drawBodies(game._world.bodies);
   game.animFrame = window.requestAnimationFrame(animFn);
 }

@@ -10,8 +10,8 @@ var ball = game.defineBodyType('ball', {
   shape: 'circle',
   props: ['x', 'y', 'vx', 'vy'],
   radius: 5,
-  width: 10,
-  height: 10
+  width: 20,
+  height: 20
 });
 var paddle = game.defineBodyType('paddle', {
   shape: 'rect',
