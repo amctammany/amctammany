@@ -199,16 +199,16 @@
     <h1>Code coverage report for <span class="entity">src/core/canvas.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">25.81% <small>(8 / 31)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">25% <small>(8 / 32)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
         Branches: <span class="metric">25% <small>(1 / 4)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Functions: <span class="metric">0% <small>(0 / 8)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Lines: <span class="metric">25.81% <small>(8 / 31)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">25% <small>(8 / 32)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
@@ -266,12 +266,7 @@
 48
 49
 50
-51
-52
-53
-54
-55
-56</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+51</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -288,7 +283,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
@@ -312,17 +306,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
@@ -343,7 +333,6 @@ var Canvas = <span class="fstat-no" title="function not covered" >function (name
 <span class="cstat-no" title="statement not covered" >  this.aspect = config.aspect || 0.66;</span>
   //$.extend(this, config, true);
 <span class="cstat-no" title="statement not covered" >  this.reset();</span>
-&nbsp;
 };
 &nbsp;
 Canvas.prototype.reset = <span class="fstat-no" title="function not covered" >function () {</span>
@@ -359,25 +348,21 @@ Canvas.prototype.reset = <span class="fstat-no" title="function not covered" >fu
 Canvas.prototype.clear = <span class="fstat-no" title="function not covered" >function () {</span>
 <span class="cstat-no" title="statement not covered" >  this.ctx.clearRect(0, 0, this.width, this.height);</span>
 };
-Canvas.prototype.draw = <span class="fstat-no" title="function not covered" >function (particles) {</span>
-<span class="cstat-no" title="statement not covered" >  this.clear();</span>
-<span class="cstat-no" title="statement not covered" >  var ctx = this.ctx;</span>
-<span class="cstat-no" title="statement not covered" >  var transFn = this.transFn;</span>
-<span class="cstat-no" title="statement not covered" >  particles.forEach(<span class="fstat-no" title="function not covered" >function (p) {</span></span>
-<span class="cstat-no" title="statement not covered" >    p.draw(transFn, ctx);</span>
-    //ctx.fillRect((p.x + 1) / 2 * width, (p.y + 1) / 2 * height, 10, 10 );
-&nbsp;
-  });
+Canvas.prototype.drawRect = <span class="fstat-no" title="function not covered" >function (x, y, width, height) {</span>
+<span class="cstat-no" title="statement not covered" >  var pos = this.transFn(x, y);</span>
+<span class="cstat-no" title="statement not covered" >  this.ctx.beginPath();</span>
+<span class="cstat-no" title="statement not covered" >  this.ctx.rect(pos.x, pos.y, width, height);</span>
+<span class="cstat-no" title="statement not covered" >  this.ctx.closePath();</span>
+<span class="cstat-no" title="statement not covered" >  this.ctx.fill();</span>
 };
-Canvas.prototype.drawBodies = <span class="fstat-no" title="function not covered" >function (bodies) {</span>
-<span class="cstat-no" title="statement not covered" >  this.clear();</span>
-<span class="cstat-no" title="statement not covered" >  var ctx = this.ctx;</span>
-<span class="cstat-no" title="statement not covered" >  var transFn = this.transFn;</span>
-<span class="cstat-no" title="statement not covered" >  bodies.forEach(<span class="fstat-no" title="function not covered" >function (b) {</span></span>
-<span class="cstat-no" title="statement not covered" >    b.draw(transFn, ctx);</span>
-    //ctx.fillRect((p.x + 1) / 2 * width, (p.y + 1) / 2 * height, 10, 10 );
 &nbsp;
-  });
+Canvas.prototype.drawCircle = <span class="fstat-no" title="function not covered" >function (x, y, radius) {</span>
+<span class="cstat-no" title="statement not covered" >  var pos = this.transFn(x, y);</span>
+<span class="cstat-no" title="statement not covered" >  this.ctx.beginPath();</span>
+<span class="cstat-no" title="statement not covered" >  this.ctx.arc(pos.x, pos.y, radius, 0, 6.28, 0);</span>
+<span class="cstat-no" title="statement not covered" >  this.ctx.fillStyle = 'black';</span>
+<span class="cstat-no" title="statement not covered" >  this.ctx.closePath();</span>
+<span class="cstat-no" title="statement not covered" >  this.ctx.fill();</span>
 };
 &nbsp;
 plexi.Canvas = Canvas;
@@ -386,7 +371,7 @@ plexi.Canvas = Canvas;
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Aug 09 2014 15:21:57 GMT-0400 (EDT)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Aug 09 2014 19:10:20 GMT-0400 (EDT)</div>
 </div>
 
 <script src="../../prettify.js"></script>

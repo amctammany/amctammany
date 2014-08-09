@@ -155,9 +155,9 @@ Game.prototype.draw = function (canvas) {
  * @param {float} delta - Time step
  */
 Game.prototype.update = function (delta) {
-  this._world.particles.forEach(function (p) {
-    p.update(delta);
-  });
+  //this._world.particles.forEach(function (p) {
+    //p.update(delta);
+  //});
   this._world.bodies.forEach(function (b) {
     b.update(delta);
   });
@@ -169,31 +169,33 @@ Game.prototype.update = function (delta) {
   //ctx.clearRect(0, 0, 10000, 10000);
 //};
 
-Game.prototype.animate = function (canvas) {
-  //this.clear(canvas);
+Game.prototype.animate = function animate (time) {
+  var self = this;
   this.update(0.1);
-  this.mainCanvas.drawBodies(this._world.bodies);
-  this.animationFrame = window.requestAnimationFrame(this.animate.bind(this, canvas));
+  var canvas = this.mainCanvas;
+  canvas.clear();
+  for (var type in this._bodyTypes) {
+    this._bodyTypes[type].drawAll(canvas);
+  }
+  //this.mainCanvas.drawBodies(this._world.bodies);
+  this.animationFrame = window.requestAnimationFrame(function (time) {
+    self.animate.call(self, time);
+  });
 
 };
-var animFn;
-function animate (game, canvas) {
-  game.update(0.08);
-  canvas.drawBodies(game._world.bodies);
-  game.animFrame = window.requestAnimationFrame(animFn);
-}
 Game.prototype.step = function (delta) {
   this.update(delta);
   this.mainCanvas.draw(this._world.particles);
 };
 
 Game.prototype.start = function () {
-  animFn = animate.bind(null, this, this.mainCanvas);
+  //animFn = animate.bind(null, this, this.mainCanvas);
 
   if (this.animationFrame) {
     return;
   }
-  window.requestAnimationFrame(animFn);
+  this.animate();
+  //window.requestAnimationFrame(animFn);
   //animate(this, this.mainCanvas)
   //this.animate(this.mainCanvas);
 };

@@ -15,7 +15,6 @@ var Canvas = function (name, config) {
   this.aspect = config.aspect || 0.66;
   //$.extend(this, config, true);
   this.reset();
-
 };
 
 Canvas.prototype.reset = function () {
@@ -31,25 +30,21 @@ Canvas.prototype.reset = function () {
 Canvas.prototype.clear = function () {
   this.ctx.clearRect(0, 0, this.width, this.height);
 };
-Canvas.prototype.draw = function (particles) {
-  this.clear();
-  var ctx = this.ctx;
-  var transFn = this.transFn;
-  particles.forEach(function (p) {
-    p.draw(transFn, ctx);
-    //ctx.fillRect((p.x + 1) / 2 * width, (p.y + 1) / 2 * height, 10, 10 );
-
-  });
+Canvas.prototype.drawRect = function (x, y, width, height) {
+  var pos = this.transFn(x, y);
+  this.ctx.beginPath();
+  this.ctx.rect(pos.x, pos.y, width, height);
+  this.ctx.closePath();
+  this.ctx.fill();
 };
-Canvas.prototype.drawBodies = function (bodies) {
-  this.clear();
-  var ctx = this.ctx;
-  var transFn = this.transFn;
-  bodies.forEach(function (b) {
-    b.draw(transFn, ctx);
-    //ctx.fillRect((p.x + 1) / 2 * width, (p.y + 1) / 2 * height, 10, 10 );
 
-  });
+Canvas.prototype.drawCircle = function (x, y, radius) {
+  var pos = this.transFn(x, y);
+  this.ctx.beginPath();
+  this.ctx.arc(pos.x, pos.y, radius, 0, 6.28, 0);
+  this.ctx.fillStyle = 'black';
+  this.ctx.closePath();
+  this.ctx.fill();
 };
 
 plexi.Canvas = Canvas;

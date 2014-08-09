@@ -9,15 +9,19 @@ game.canvas('pong-canvas', {
 var ball = game.defineBodyType('ball', {
   shape: 'circle',
   props: ['x', 'y', 'vx', 'vy'],
-  radius: 5,
-  width: 20,
-  height: 20
+  radius: 15,
+  paint: function (canvas) {
+    canvas.drawCircle(this.x, this.y, this.radius);
+  }
 });
 var paddle = game.defineBodyType('paddle', {
   shape: 'rect',
   props: ['x', 'y'],
-  width: 10,
-  height: 50
+  width: 20,
+  height: 80,
+  paint: function (canvas) {
+    canvas.drawRect(this.x, this.y, this.width, this.height);
+  }
 });
 
 var p1 = game.addBody('paddle', {
