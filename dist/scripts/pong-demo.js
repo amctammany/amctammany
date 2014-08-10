@@ -24,12 +24,23 @@ var paddle = game.defineBodyType('paddle', {
   }
 });
 
+var keyboard = game.keyboard({
+  '38': function (game) {
+    game.findBody('player').shift(0, -0.1);
+  },
+  '40': function (game) {
+    game.findBody('player').shift(0, 0.1);
+  },
+});
+
 var p1 = game.addBody('paddle', {
+  id: 'player',
   x: -0.9,
   y: 0,
 });
 
 var p2 = game.addBody('paddle', {
+  id: 'opponent',
   x: 0.9,
   y: 0.5,
 });

@@ -19,6 +19,10 @@ var BodyType = function (id, config) {
       this.constants[key] = config[key];
     }
   }
+  this.constants.minX = this.constants.minX || -1;
+  this.constants.maxX = this.constants.maxX || 1;
+  this.constants.minY = this.constants.minY || -1;
+  this.constants.maxY = this.constants.maxY || 1;
 };
 
 BodyType.prototype.create = function (config) {

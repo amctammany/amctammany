@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: plexi.js</title>
+    <title>JSDoc: Source: core/body.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: plexi.js</h1>
+    <h1 class="page-title">Source: core/body.js</h1>
 
     
 
@@ -26,40 +26,55 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>'use strict';
+var plexi = plexi || {};
 
 /**
- * @module plexi
- * @namespace plexi
+ * @class Body
+ * Main game body
+ * @constructor
+ * @param {String} type - BodyType Identifier
+ * @param {Object} config - Body configuration object
  */
 
+var Body = function (type, config) {
+  plexi.extend(this, type.constants);
+  plexi.extend(this, config);
 
-var plexi = {
+};
 
-  /**
-   * createGame
-   * @memberof plexi
-   * @instance
-   * @param {String} id - Game DOM Identifier
-   * @returns {Game}
-   */
-  createGame: function (id) {
-    return new plexi.Game(id);
+Body.prototype.update = function (delta) {
+  if (this.vx &amp;&amp; this.vy) {
+    this.x = this.x + this.vx * delta;
+    this.y = this.y + this.vy * delta;
 
-  },
-  extend: function (obj, config) {
-    for (var key in config) {
-      obj[key] = config[key];
+    if (this.x > 1 || this.x &lt; -1) {
+      this.vx *= -1;
     }
-  },
-  partial: function (fn) {
-    var slice = Array.prototype.slice;
-    var args = slice.call(arguments, 1);
-
-    return function () {
-      return fn.apply(this, args.concat(slice.call(arguments, 0)));
-    };
+    if (this.y > 1 || this.y &lt; -1) {
+      this.vy *= -1;
+    }
   }
 };
+
+/**
+ * @function shift
+ * @memberof Body
+ * @instance
+ * @param {float} dx - Horizontal Shift
+ * @param {float} dy - Vertical Shift
+ * @returns {Body}
+ */
+Body.prototype.shift = function (dx, dy) {
+  if (this.x + dx > this.maxX || this.x + dx &lt; this.minX || this.y + dy > this.maxY || this.y + dy &lt; this.minY) {
+    console.log('out of bounds');
+    return this;
+  }
+  this.x += dx;
+  this.y += dy;
+  return this;
+};
+
+plexi.Body = Body;
 </code></pre>
         </article>
     </section>

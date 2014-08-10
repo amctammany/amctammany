@@ -2,14 +2,13 @@
 var plexi = plexi || {};
 /**
  * @class World
- * @property Array particles - Particle array
+ * @property Array bodies - Particle array
  * @property Array forces - Global force array
  * @property Array behaviors - Global behavior array
  * @property float damping - Global damping coefficient
  */
 
 var World = function () {
-  this.particles = [];
   this.bodies = [];
   this.forces = [];
   this.behaviors = [];
@@ -21,7 +20,7 @@ var World = function () {
  * @memberof World
  */
 World.prototype.reset = function () {
-  this.particles = [];
+  //this.particles = [];
 };
 
 /**
@@ -32,17 +31,6 @@ World.prototype.reset = function () {
 World.prototype.addBody = function (body) {
   this.bodies.push(body);
   return body;
-};
-
-/**
- * @function addParticle
- * @memberof World
- * @param Object config - Config object
- */
-World.prototype.addParticle = function (config) {
-  var p = new plexi.Particle(config);
-  this.particles.push(p);
-  return p;
 };
 
 plexi.World = World;

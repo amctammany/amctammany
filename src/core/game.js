@@ -3,8 +3,11 @@
 var $;
 var plexi = plexi || {};
 /**
- * @class Game
+ * @class
+ * Game ultimate parent class
+ * @constructor
  * @param {String} id - DOM Identifier
+ * @returns {Game}
  */
 
 var Game = function (id) {
@@ -13,6 +16,8 @@ var Game = function (id) {
   this._actions = {};
   this._canvii = {};
   this._bodyTypes = {};
+  this._keyListeners = {};
+  this._namedBodies = {};
   this._world = new plexi.World();
   if ($ !== undefined) {
     this.$div = $('#' + id);
@@ -22,6 +27,7 @@ var Game = function (id) {
 /**
  * Declares a key:value object as game varibles
  * @function vars
+ * @instance
  * @memberof Game
  * @param {Object} vars
  */
@@ -34,6 +40,7 @@ Game.prototype.vars = function (vars) {
 /**
  * Variable getter/setter
  * @function var
+ * @instance
  * @memberof Game
  * @param {String} name
  * @param {Anything} value - Optional
@@ -47,6 +54,7 @@ Game.prototype.var = function (name, value) {
 };
 /**
  * @function controls
+ * @instance
  * @memberof Game
  * @param {Object} bindings
  */
@@ -60,6 +68,7 @@ Game.prototype.controls = function (bindings) {
 };
 /**
  * @function actions
+ * @instance
  * @memberof Game
  * @param {Object} bindings
  */
@@ -77,29 +86,54 @@ Game.prototype.actions = function (bindings) {
 
 
 /**
+ * @function keyboard
+ * @instance
+ * @memberof Game
+ * @param {Object} bindings - Key bindings
+ */
+Game.prototype.keyboard = function (bindings) {
+  for (var key in bindings) {
+    this._keyListeners[key] = bindings[key];
+  }
+  var self = this;
+  window.onkeypress = function (e) {
+    self.findKeyListener(e);
+  };
+  window.onkeydown = function (e) {
+    self.findKeyListener(e);
+  };
+};
+Game.prototype.findKeyListener = function (e) {
+  var listener = this._keyListeners[e.keyCode];
+  if (listener) {
+    listener(this);
+    e.preventDefault();
+  }
+};
+/**
+ * @function findBody
+ * @instance
+ * @memberof Game
+ * @param String name - Identifier
+ * @returns {Body}
+ */
+
+Game.prototype.findBody = function (name) {
+  var body = this._namedBodies[name];
+  if (body) {
+    return body;
+  } else {
+    return null;
+  }
+};
+/**
  * @function canvas
+ * @instance
  * @memberof Game
  * @param {String} id - Canvas Identifier
  * @param {Object} properties - Canvas Properties
  */
 Game.prototype.canvas = function (name, properties) {
-  //var canvas = document.getElementById(name);
-  //var $parent = $(canvas).parent();
-  //canvas.width = $parent.width() - 20;
-  //this.width = canvas.width;
-
-  //canvas.height = ($parent.width() - 20) * 0.66;
-  //this.height = canvas.height;
-
-  //var ctx = canvas.getContext('2d');
-  //this._canvii[name] = {
-    //$parent: $parent,
-    //canvas: canvas,
-    //ctx: ctx,
-  //};
-  //$.extend(this._canvii[name], properties);
-  //this.mainCanvas = name;
-  //
   var canvas = new plexi.Canvas(name, properties);
   this._canvii[name] = canvas;
   this.mainCanvas = canvas;
@@ -107,6 +141,7 @@ Game.prototype.canvas = function (name, properties) {
 
 /**
  * @function bootstrap
+ * @instance
  * @memberof Game
  * @param {Function} cb - Initialization Callback
  */
@@ -115,59 +150,51 @@ Game.prototype.bootstrap = function (cb) {
   this.restart();
 };
 
+/**
+ * @function restart - Stops and resets game to defaults.
+ * @instance
+ * @memberof Game
+ */
 Game.prototype.restart = function () {
   this.stop();
   this.reset();
   this.bootstrapFn();
 };
 
+/**
+ * @function reset - Resets game world
+ * @instance
+ * @memberof Game
+ */
 Game.prototype.reset = function () {
   this._world.reset();
 };
 
 /**
- * @function addParticle
- * @memberof Game
- * @param {Object} config - Particle Intrinsic Properties
- */
-Game.prototype.addParticle = function (config) {
-  return this._world.addParticle(config);
-  //var p = new Particle(config);
-  //this._particles.push(p);
-  //return p;
-};
-
-/**
  * @function draw
+ * @instance
  * @memberof Game
+ * @param {Canvas} canvas - Rendering Canvas
  */
-Game.prototype.draw = function (canvas) {
-  this.mainCanvas.draw(this._world.particles);
-  //var ctx = this._canvii[canvas].ctx;
-  //this._particles.forEach(function (p) {
-    //p.draw(ctx);
-  //});
-};
+//Game.prototype.draw = function (canvas) {
+  //this.mainCanvas.draw(this._world.particles);
+  ////var ctx = this._canvii[canvas].ctx;
+  ////this._particles.forEach(function (p) {
+    ////p.draw(ctx);
+  ////});
+//};
 
 /**
  * @function update
+ * @instance
  * @memberof Game
  * @param {float} delta - Time step
  */
 Game.prototype.update = function (delta) {
-  //this._world.particles.forEach(function (p) {
-    //p.update(delta);
-  //});
   this._world.bodies.forEach(function (b) {
     b.update(delta);
   });
 };
-
-
-//Game.prototype.clear = function (canvas) {
-  //var ctx = this._canvii[canvas].ctx;
-  //ctx.clearRect(0, 0, 10000, 10000);
-//};
 
 Game.prototype.animate = function animate (time) {
   var self = this;
@@ -183,21 +210,15 @@ Game.prototype.animate = function animate (time) {
   });
 
 };
-Game.prototype.step = function (delta) {
-  this.update(delta);
-  this.mainCanvas.draw(this._world.particles);
-};
 
 Game.prototype.start = function () {
+  this.reset();
   //animFn = animate.bind(null, this, this.mainCanvas);
 
-  if (this.animationFrame) {
-    return;
-  }
+  //if (this.animationFrame) {
+    //return;
+  //}
   this.animate();
-  //window.requestAnimationFrame(animFn);
-  //animate(this, this.mainCanvas)
-  //this.animate(this.mainCanvas);
 };
 
 Game.prototype.stop = function () {
@@ -209,6 +230,7 @@ Game.prototype.stop = function () {
 
 /**
  * @function defineBodyType
+ * @instance
  * @memberof Game
  * @param String id - Unique string identifier
  * @param Object config - Body definition object
@@ -221,6 +243,7 @@ Game.prototype.defineBodyType = function (id, config) {
 
 /**
  * @function addBody
+ * @instance
  * @memberof Game
  * @param String type - BodyType Name
  * @param Object config - Body config object
@@ -228,6 +251,11 @@ Game.prototype.defineBodyType = function (id, config) {
 Game.prototype.addBody = function (type, config) {
 
   var body = this._bodyTypes[type].create(config);
+  if (body.id) {
+    console.log('named body');
+    console.log(body.id);
+    this._namedBodies[body.id] = body;
+  }
   this._world.addBody(body);
   return body;
 };
