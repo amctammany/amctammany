@@ -12,16 +12,18 @@ var Canvas = function (name, config) {
   this.canvas = document.getElementById(name);
   this.ctx = this.canvas.getContext('2d');
   this.$parent = $(this.canvas).parent();
-  this.aspect = config.aspect || 0.66;
+  this.fullHeight = config.fullHeight;
+  this.fullWidth = config.fullWidth;
+  this.aspect = this.fullWidth / this.fullHeight || config.aspect || 0.66;
   //$.extend(this, config, true);
   this.reset();
 };
 
 Canvas.prototype.reset = function () {
-  this.width = this.$parent.width() - 20;
+  this.width = this.fullWidth || this.$parent.width() - 20;
   this.canvas.width = this.width;
 
-  this.height = this.width * this.aspect;
+  this.height = this.fullHeight || this.width * this.aspect;
   this.canvas.height = this.height;
   this.transFn = plexi.partial(translate, this.width, this.height);
 };

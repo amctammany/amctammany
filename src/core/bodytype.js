@@ -19,10 +19,6 @@ var BodyType = function (id, config) {
       this.constants[key] = config[key];
     }
   }
-  this.constants.minX = this.constants.minX || -1;
-  this.constants.maxX = this.constants.maxX || 1;
-  this.constants.minY = this.constants.minY || -1;
-  this.constants.maxY = this.constants.maxY || 1;
 };
 
 BodyType.prototype.create = function (config) {
@@ -43,7 +39,9 @@ BodyType.prototype.draw = function (canvas, body) {
 
 BodyType.prototype.drawAll = function (canvas) {
   var self = this;
+  //var drawBody = this.draw.bind(this, canvas);
   this.children.forEach(function (body) {
+    //drawBody(body);
     self.draw(canvas, body);
   });
 };

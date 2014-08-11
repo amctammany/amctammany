@@ -3,7 +3,9 @@
 var game = plexi.createGame('pong-demo');
 
 game.canvas('pong-canvas', {
-  aspect: 0.5,
+  fullHeight: 350,
+  fullWidth: 800,
+  //aspect: 0.5,
 });
 
 var ball = game.defineBodyType('ball', {
@@ -42,7 +44,7 @@ var p1 = game.addBody('paddle', {
 var p2 = game.addBody('paddle', {
   id: 'opponent',
   x: 0.9,
-  y: 0.5,
+  y: 0.0,
 });
 
 var b = game.addBody('ball', {
