@@ -34,7 +34,9 @@ var plexi = {
   },
   extend: function (obj, config) {
     for (var key in config) {
-      obj[key] = config[key];
+      if (config.hasOwnProperty(key)) {
+        obj[key] = config[key];
+      }
     }
   },
   partial: function (fn) {
