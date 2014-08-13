@@ -235,8 +235,8 @@ Game.prototype.stop = function () {
  * @param String id - Unique string identifier
  * @param Object config - Body definition object
  */
-Game.prototype.defineBodyType = function (id, config) {
-  this._bodyTypes[id] = new plexi.BodyType(id, config);
+Game.prototype.defineBodyType = function (id, shape, config) {
+  this._bodyTypes[id] = new plexi.BodyType(id, shape, config);
   return this._bodyTypes[id];
 
 };

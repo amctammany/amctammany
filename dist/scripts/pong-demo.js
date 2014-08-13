@@ -8,22 +8,12 @@ game.canvas('pong-canvas', {
   //aspect: 0.5,
 });
 
-var ball = game.defineBodyType('ball', {
-  shape: 'circle',
-  props: ['x', 'y', 'vx', 'vy'],
+var ball = game.defineBodyType('ball', 'circle', {
   radius: 15,
-  paint: function (canvas) {
-    canvas.drawCircle(this.x, this.y, this.radius);
-  }
 });
-var paddle = game.defineBodyType('paddle', {
-  shape: 'rect',
-  props: ['x', 'y'],
+var paddle = game.defineBodyType('paddle', 'rect', {
   width: 20,
   height: 80,
-  paint: function (canvas) {
-    canvas.drawRect(this.x, this.y, this.width, this.height);
-  }
 });
 
 var keyboard = game.keyboard({

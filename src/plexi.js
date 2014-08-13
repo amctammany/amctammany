@@ -7,6 +7,19 @@
 
 
 var plexi = {
+  /**
+   * @createShape
+   * @memberof plexi
+   * @param {String} id - Identifier
+   * @param {Object} config - Configuration Object
+   */
+
+  createShape: function (id, config) {
+    plexi.Shapes[id] = new Shape(id, config);
+
+  },
+
+  Shapes: {},
 
   /**
    * createGame

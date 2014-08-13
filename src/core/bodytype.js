@@ -5,20 +5,28 @@ var plexi = plexi || {};
  * @class BodyType
  * @param String id - BodyType identifier
  */
-var BodyType = function (id, config) {
+var BodyType = function (id, shape, config) {
   this.id = id;
-  this.props = [];
-  this.constants = {};
+  this.shape = new plexi.Shapes[shape];
+  this.shape.applyConfig.call(this, config);
   this.children = [];
-  for (var key in config) {
-    if (key === 'props') {
-      this.props = config.props;
-    } else if (key === 'paint') {
-      this.paint = config.paint;
-    } else {
-      this.constants[key] = config[key];
-    }
-  }
+
+  //for (var key in config) {
+    //this.constants[key] = config[key];
+  //}
+  //this.props = [];
+  //this.constants = {};
+  //for (var key in config) {
+    //if (key === 'shape') {
+      //this.shape = plexi.Shapes[config.shape];
+    //} else if (key === 'props') {
+      //this.props = config.props;
+    //} else if (key === 'paint') {
+      //this.paint = config.paint;
+    //} else {
+      //this.constants[key] = config[key];
+    //}
+  //}
 };
 
 BodyType.prototype.create = function (config) {

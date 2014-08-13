@@ -25,6 +25,7 @@ Canvas.prototype.reset = function () {
 
   this.height = this.fullHeight || this.width * this.aspect;
   this.canvas.height = this.height;
+  //this.ctx.scale(0.4, 0.4);
   this.transFn = plexi.partial(translate, this.width, this.height);
 };
 

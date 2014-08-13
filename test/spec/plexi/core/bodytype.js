@@ -4,15 +4,13 @@ describe('Plexi::BodyType', function () {
   var bodyType, game;
   var name = 'ball';
   var config = {
-    shape: 'circle',
-    props: ['x', 'y'],
     radius: 5,
     width: 20,
     height: 20
   };
   beforeEach(function () {
     game = plexi.createGame('id');
-    bodyType = game.defineBodyType(name, config);
+    bodyType = game.defineBodyType(name, 'circle', config);
   });
 
   it('should create props and constants', function () {

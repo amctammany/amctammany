@@ -26,8 +26,7 @@ describe('Game', function () {
   });
 
   it('should define game body', function () {
-    var boxType = game.defineBodyType('box', {
-      props: ['x', 'y'],
+    var boxType = game.defineBodyType('box', 'rect', {
       width: 50,
       height: 50
     });
